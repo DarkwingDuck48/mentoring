@@ -1,32 +1,40 @@
+# 1. Функции можно присваивать переменным
+def greet(name):
+    return f"Hello, {name}!"
 
-def square_def(x):
-    return x ** 2
+my_function = greet  # Присваиваем функцию переменной
+print(my_function("Alice"))  # "Hello, Alice!"
 
-print(square_def(5))
+# 2. Функции можно передавать как аргументы
+def call_twice(func, arg):
+    """Вызывает функцию дважды с одним аргументом"""
+    return func(arg) + " " + func(arg)
 
+result = call_twice(greet, "Bob")
+print(result)  # "Hello, Bob! Hello, Bob!"
 
-square_lambda = lambda x: x ** 2  # noqa: E731
+# 3. Функции можно возвращать из функций
+def create_greeter(greeting):
+    def greeter(name):
+        return f"{greeting}, {name}!"
+    return greeter  # Возвращаем функцию, а не результат!
 
-print(square_lambda(5)) # Вывод: 25
-
-students = [
-    {'name': 'Alice', 'grade': 90},
-    {'name': 'Bob', 'grade': 85},
-    {'name': 'Charlie', 'grade': 95}
-]
-
-sorted_students = sorted(students, key=lambda student: student['grade'])
-print(sorted_students)
-
-
-numbers = [1, 2, 3, 4, 5, 6]
-even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
-print(even_numbers) # Вывод: [2, 4, 6]
+hello = create_greeter("Hello")
+print(hello("Charlie"))  # "Hello, Charlie!"
 
 
-squares = list(map(lambda x: x ** 2, numbers))
-print(squares) # Вывод: [1, 4, 9, 16, 25, 36]
 
-words = ['apple', 'banana', 'cherry']
-sorted_by_last_letter = sorted(words, key=lambda word: word[-1])
-print(sorted_by_last_letter) # Вывод: ['banana', 'apple', 'cherry'] (a, e, y)
+def my_decorator(func):
+    def wrapper():
+        print("Что-то происходит перед вызовом функции")
+        func()
+        print("Что-то происходит после вызова функции")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("Hello!")
+
+# Эквивалентно: say_hello = my_decorator(say_hello)
+
+say_hello()
