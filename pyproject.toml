@@ -6,13 +6,6 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "ipykernel>=7.0.1",
-]
-
-[dependency-groups]
-dev = [
-    "ruff>=0.14.1",
-]
-
-test = [
-    "pytest >= 8.4.2"
+    "ipython>=9.6.0",
+    "ruff>=0.14.2",
 ]
