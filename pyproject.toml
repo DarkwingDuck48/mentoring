@@ -1,7 +1,11 @@
 [project]
+# Секция с базовыми настройками проекта. 
+# Подробнее - https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
 name = "mentoring"
 version = "0.1.0"
+authors = [{name="Maxim Britvin", email="maksbritvin@gmail.com"}]
 description = "Mentor helper for Python"
+keywords = ["mentoring", "education"]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -9,3 +13,46 @@ dependencies = [
     "ipython>=9.6.0",
     "ruff>=0.14.2",
 ]
+
+# Настройки инструментов 
+
+# Pyright
+[tool.pyright]
+# В случае, если менти хочет работать не только с VS Code, но и попро
+venvPath = ".venv"
+venv = "venv"
+typeCheckingMode = "standard"
+
+
+# Ruff - подробнее https://docs.astral.sh/ruff/configuration/
+[tool.ruff]
+line-length = 100
+indent-width = 4
+target-version = "py312"
+
+[tool.ruff.lint]
+# 1. Enable flake8-bugbear (`B`) rules, in addition to the defaults.
+select = ["E4", "E7", "E9", "F", "B"]
+# 2. Avoid enforcing line-length violations (`E501`)
+ignore = ["E501", "B008"]
+extend-select = ["I"]
+# 3. Avoid trying to fix flake8-bugbear (`B`) violations.
+unfixable = ["B"]
+
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402", "F402", "F403", "F401", "I001"]
+"**/{tests,docs,tools}/*" = ["E402", "F401"]
+"**/*.ipynb" = ["F"]
+"**/src/{api}/*" = ["B008"]
+"**/{migrations}/*" = ["F"]
+# Не хотим импортировать модели для определения отношений.
+"**/src/{models}/*" = ["F821"]
+
+[tool.ruff.format]
+# 5. Use single quotes in `ruff format`.
+quote-style = "single"
+indent-style = "space"
+exclude = ["*.pyi"]
+
+
