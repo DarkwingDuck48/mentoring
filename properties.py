@@ -5,7 +5,7 @@ class Temperature:
     @property
     def celsius(self):
         """Геттер для celsius"""
-        return self._celsius
+        return f'Температура: {self._celsius}'
 
     @celsius.setter
     def celsius(self, value):
@@ -17,7 +17,7 @@ class Temperature:
     @property
     def fahrenheit(self):
         """Вычисляемое свойство"""
-        return (self._celsius * 9 / 5) + 32
+        return f'{(self._celsius * 9 / 5) + 32} F'
 
     @fahrenheit.setter
     def fahrenheit(self, value):
@@ -31,4 +31,6 @@ print(temp.celsius)  # ✅ 25
 print(temp.fahrenheit)  # ✅ 77.0
 
 temp.celsius = 30  # ✅ Работает через сеттер
-# temp.celsius = -300   # ❌ ValueError
+print(temp.celsius)
+temp.celsius = -300  # ❌ ValueError
+print(temp.celsius)
