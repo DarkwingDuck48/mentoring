@@ -1,4 +1,5 @@
-from typing import List, Dict, Set, Tuple, Optional, Union, Any
+from typing import Dict, List, Optional, Set, Tuple, Union
+
 
 # Аннотации переменных
 name: str = 'Alice'
@@ -6,17 +7,21 @@ age: int = 25
 is_student: bool = True
 scores: list[float] = [95.5, 87.0, 92.3]
 
+
 # Коллекции (старый стиль для Python < 3.9)
-names: List[str] = ['Alice', 'Bob']
+names_1: List[str] = [
+    'Alice',
+    'Bob',
+]
 scores_2: Dict[str, float] = {'Alice': 95.5, 'Bob': 87.0}
 unique_ids: Set[int] = {1, 2, 3}
-coordinates: Tuple[float, float] = (10.5, 20.3)
+coordinates: Tuple[float, float, str] = (10.5, 20.3)
 
 # Новый стиль (Python 3.9+)
-names: list[str] = ['Alice', 'Bob']
+names: list[str | int] = ['Alice', 'Bob', 23]
 scores_2: dict[str, float] = {'Alice': 95.5, 'Bob': 87.0}
 unique_ids: set[int] = {1, 2, 3}
-coordinates: tuple[float, float] = (10.5, 20.3)
+coordinates: tuple[float, float, str] = (10.5, 20.3, 'str')
 
 
 # Аннотации функций
@@ -55,4 +60,11 @@ def process_value_new(value: int | str | list) -> int | str:
 def foo(*args: int, **kwargs: str):
     # для args (позиционных аргументов) указывается только один тип, который ожидаем получать
     # для kwargs (именованых аргументов) указывается только тип значения аргумента. Ключ ВСЕГДА будет типа str
-    pass
+    print(type(args))
+    print(f'{args=}')
+    print(type(kwargs))
+    print(f'{kwargs=}')
+
+
+if __name__ == '__main__':
+    foo(1, 2, 3, 4, 5, test='2', name='Max')
